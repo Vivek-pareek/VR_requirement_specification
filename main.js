@@ -2,10 +2,13 @@ const express = require('express');
 const app = express();
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const dotenv = require("dotenv");
 
+dotenv.config();
 
 const connectionString =
-"mongodb+srv://test-app1:GltvfFJDtlMVj2pv@cluster0.8bgpq.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+"mongodb+srv://" + process.env.DB_USERNAME + ":" + process.env.DB_PASSWORD + "@cluster0.8bgpq.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+
 
 mongoose.connect(connectionString);
 
