@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head'); %>
+</head>
+<body class="container">
+
+<header>
+  <%- include('../partials/header'); %>
+</header>
+
+<main>
+<div class="row">
+  <div class="col-sm-8">
+    <form action="/action_page.php" class = "needs-validation" novalidate>
+      <div class="form-group">
+        <label for="uname">Username*:</label>
+        <input type="text" class="form-control" id="uname" placeholder="Enter username" name="uname" required>
+        <div class="valid-feedback">Valid.</div>
+        <div class="invalid-feedback">Please fill out this field.</div>
+      </div>
+      <div class="form-group">
+        <label for="pwd">Organization Name:</label>
+        <input type="password" class="form-control" id="org_name" placeholder="Enter password" name="org_name">
+        <div class="valid-feedback">Valid.</div>
+        <div class="invalid-feedback">Please fill out this field.</div>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+</div>
+</main>
+
+<footer>
+  <%- include('../partials/footer'); %>
+</footer>
+
+</body>
+</html>
