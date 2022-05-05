@@ -3,12 +3,17 @@ const app = express();
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
+const path = require('path')
 
 dotenv.config();
 
-const connectionString =
-"mongodb+srv://" + process.env.DB_USERNAME + ":" + process.env.DB_PASSWORD + "@cluster0.8bgpq.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+app.use(express.static(path.join(__dirname, 'resources')));
 
+
+const connectionString =
+"mongodb+srv://" + process.env.DB_USERNAME + ":" +
+process.env.DB_PASSWORD +
+"@cluster0.8bgpq.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 
 mongoose.connect(connectionString);
 
@@ -35,11 +40,6 @@ app.get('/', function(req, res) {
     res.render('pages/login');
 });
 
-// about page
-app.get('/register', function(req, res) {
-  res.render('pages/register');
-});
-
 app.post('/', function(req, res){
     console.log();
     res.render('pages/login');
@@ -47,7 +47,7 @@ app.post('/', function(req, res){
 
 app.post('/register', function(req, res){
     console.log(req.body.uname);
-    res.render('pages/register');
+    res.render('pages/login');
 });
 
 app.listen(8080);
