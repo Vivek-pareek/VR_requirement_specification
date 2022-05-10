@@ -1,0 +1,65 @@
+{
+	"Scene": {
+		"name": "scene",
+		"degree_of_freedom": [{
+			"type": "3"
+		}, {
+			"type": "6"
+		}],
+		"Camera": "true",
+		"Initial Position": "true",
+		"Skybox": [{
+				"Indicator": "Forward"
+			},
+			{
+				"Indicator": "Back"
+			},
+			{
+				"Indicator": "Up"
+			},
+			{
+				"Indicator": "Down"
+			},
+			{
+				"Indicator": "Left"
+			},
+			{
+				"Indicator": "Right"
+			}
+		],
+		"Horizon": [{
+			"flag": "true"
+		}, {
+			"flag": "false"
+		}],
+		"MultiUser": [{
+			"flag": "true"
+		}, {
+			"flag": "false"
+		}],
+		"InteractionMode": [{
+			"flag": "true"
+		}, {
+			"flag": "false"
+		}],
+		"Controllers": [{
+				"type": "Hand"
+			},
+			{
+				"type": "Haptic"
+			},
+			{
+				"type": "External"
+			}
+		]
+
+	},
+	"SceneObject": {},
+	"ActionHandler": {},
+	"Time": {},
+	"SceneObjectBehavior": {},
+	"Audio": {},
+	"CoRoutines": {},
+	"SceneState": {},
+	"AssetState": {}
+}

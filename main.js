@@ -3,12 +3,14 @@ const app = express();
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
-const path = require('path')
+const path = require("path");
+
+//variable to hold default Specifications data object
+var specsData = require("./resources/default_specs.json");
 
 dotenv.config();
 
 app.use(express.static(path.join(__dirname, 'resources')));
-
 
 const connectionString =
 "mongodb+srv://" + process.env.DB_USERNAME + ":" +
@@ -33,21 +35,20 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // set the view engine to ejs
 app.set('view engine', 'ejs');
 
-// use res.render to load up an ejs view file
-
-// index page
 app.get('/', function(req, res) {
     res.render('pages/login');
 });
 
+app.get('/test', function(req, res){
+    res.render('pages/vreqsl');
+});
+
 app.post('/', function(req, res){
-    console.log();
     res.render('pages/login');
 });
 
 app.post('/register', function(req, res){
-    console.log(req.body.uname);
-    res.render('pages/login');
+    res.render('pages/login', {data: specsData});
 });
 
 app.listen(8080);

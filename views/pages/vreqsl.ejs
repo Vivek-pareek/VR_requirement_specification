@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head'); %>
+</head>
+<body class="container-fluid">
+
+<header>
+  <%- include('../partials/logo_header'); %>
+</header>
+
+<main>
+  <div class="jumbotron">
+    <div class="row">
+      <div class="col">
+        <div class="container">
+        <label for="treeView">Tree View:</label>
+        <ul id="myUL">
+        </ul>
+      </div>
+    </div>
+      <div class="col">
+        <div class="form-group">
+          <label for="updateSpecifications">Update Specifications:</label>
+          <textarea class="form-control" rows="20" id="jsonData"></textarea>
+        </div>
+      </div>
+      <div class="col">
+      <div class="container">
+        <label for="Documentation">Documentation:</label>
+        <p id="documentationText">Documentation area for the doc string attribute present for json selected.</p>
+      </div>
+      </div>
+    </div>
+  </div>
+  <script>
+  $(document).ready(function(){
+    var specsData = {};
+    var resultString = '';
+    function associateToggleElements(){
+      var toggler = document.getElementsByClassName("caret");
+      var i;
+      for (i = 0; i < toggler.length; i++) {
+      toggler[i].addEventListener("click", function() {
+        this.parentElement.querySelector(".nested").classList.toggle("active");
+        this.classList.toggle("caret-down");
+      });
+      }
+    }
+    function createElements(element){
+      for(let x in element){
+          if(typeof element[x] == 'object'){
+              resultString+='<li><span class="caret">' + x + " (" +
+              Object.keys(element[x]).length + ")" + '</span>';
+              resultString+= '<ul class="nested">';
+              createElements(element[x]);
+              resultString+= '</ul></li>';
+          }
+          else if(typeof element[x] == 'string'){
+              resultString+='<li>' + x + ": " + element[x] + '</li>';
+          }
+          else if((typeof element[x] == 'boolean') || (typeof element[x] == 'number')){
+              resultString+='<li>' + x + ": " + element[x].toString() + '</li>';
+          }
+      }
+    }
+    $.ajax({
+      type: 'GET',
+      url: "default_specs.json",
+      async: false,
+      beforeSend: (xhr) => {
+        if (xhr && xhr.overrideMimeType) {
+          xhr.overrideMimeType('application/json;charset=utf-8');
+        }
+      },
+      dataType: 'json',
+      success: (data) => {
+        specsData = data;
+        createElements(specsData);
+        resultString+="</ul>";
+        document.getElementById("myUL").innerHTML = resultString;
+        associateToggleElements();
+      }
+    });
+    $("#myUL").click(function(){
+        document.getElementById("jsonData").innerHTML = JSON.stringify(specsData, null, "\t");
+    });
+  });
+  </script>
+</main>
+
+<footer class="fixed-bottom">
+  <%- include('../partials/footer'); %>
+</footer>
+
+</body>
+</html>
