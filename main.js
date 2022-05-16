@@ -1,34 +1,21 @@
-const express = require('express');
-const app = express();
-const bodyParser = require("body-parser");
-const mongoose = require("mongoose");
-const dotenv = require("dotenv");
-const path = require("path");
+var express = require('express');
+var app = express();
+var bodyParser = require("body-parser");
+var mongoose = require("mongoose");
+var dotenv = require("dotenv");
+var path = require("path");
+var db = require("./DBConnection.js");
+var passport = require("passport");
+var LocalStrategy = require("passport-local").Strategy;
+
+const databaseConnection = db;
 
 //variable to hold default Specifications data object
-var specsData = require("./resources/default_specs.json");
+let specsData = require("./resources/default_specs.json");
 
 dotenv.config();
 
 app.use(express.static(path.join(__dirname, 'resources')));
-
-const connectionString =
-"mongodb+srv://" + process.env.DB_USERNAME + ":" +
-process.env.DB_PASSWORD +
-"@cluster0.8bgpq.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
-
-mongoose.connect(connectionString);
-
-var db = mongoose.connection;
-
-db.on('connected', function(){
-  console.log('Connected to database');
-});
-
-db.on('error', function(err) {
-  console.log('Error in connecting to database : ' + err);
-});
-
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
