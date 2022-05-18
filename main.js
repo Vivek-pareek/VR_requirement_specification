@@ -8,7 +8,10 @@ var db = require("./DBConnection.js");
 var passport = require("passport");
 var LocalStrategy = require("passport-local").Strategy;
 
-const databaseConnection = db;
+
+(async () => {
+  const databaseConnection = db;
+})();
 
 //variable to hold default Specifications data object
 let specsData = require("./resources/default_specs.json");

@@ -7,20 +7,18 @@ const connectionString =
 process.env.DB_PASSWORD +
 "@cluster0.8bgpq.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 
-mongoose.connect(connectionString);
+module.exports = async function() {
+  try{
+    await mongoose.connect(connectionString);
 
-let conn = mongoose.connection;
+    let conn = mongoose.connection;
 
-conn.on('connected', function(){
-  console.log("Connected to database...");
-});
-
-conn.on('disconnected', function(){
-  console.log("Disconnected from database...");
-});
-
-conn.on('error', function(){
-  console.log("Could not connect to database");
-});
-
-module.exports = conn;
+    conn.on('connected', function(){
+      console.log("Connected to database...");
+    });
+    return conn;
+  }
+  catch(error){
+    console.log(error);
+  }
+}
